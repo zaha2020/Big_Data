@@ -6,3 +6,6 @@ This Project is a group work with [Armin Ayatollahi](https://github.com/arminaya
 ](https://github.com/yaramohamadi), [mohammad-nili](https://github.com/mohammad-nili). in this project we used online Persian Twitter data for Designing a real-time system. 
 
 ![Schematic](https://github.com/arminayat/bigdata-finalproject/blob/main/schematic.png)
+
+## Responsibility:
+In this project, I was responsible for designing the persistence and analytics sections.
