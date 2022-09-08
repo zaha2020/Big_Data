@@ -1,0 +1,97 @@
+------2------
+
+
+#------1.1
+#1way
+Match (c) Return c
+#secondway
+Call db.schema.visualization
+
+#------1.2
+MATCH (c:Character)
+RETURN count(c),count(DISTINCT c.name)
+
+#-----1.3
+MATCH (countryname:Country)-[:IN_COUNTRY]-(name:Character)
+RETURN count(name),countryname.name ORDER BY countryname.name ASC
+
+#-------1.4
+MATCH (C:Character)-[:SIBLING]-()
+WITH  collect(DISTINCT C.id) as SIBLING
+MATCH (c:Character)
+WHERE NOT c.id IN SIBLING
+RETURN DISTINCT( c.name)
+
+1.4.2
+MATCH (C:Character)-[:SIBLING]-()
+WITH  collect(DISTINCT C.id) as SIBLING
+MATCH (c:Character)
+WHERE NOT c.id IN SIBLING
+MATCH (c)-[HF:HAS_FATHER]->(M:Character)
+MATCH (M)-[HH:HAS_FATHER]->(N:Character)
+RETURN DISTINCT  c.name as child ,N.name as grand_father
+----
+
+#second way
+MATCH (C:Character)<-[:SIBLING]-()
+WITH  collect(DISTINCT C.id) as SIBLING
+MATCH (c:Character)
+WHERE NOT c.id IN SIBLING
+MATCH (c)-[HF:HAS_FATHER]->(DAD:Character)
+MATCH (c)-[HM:HAS_MOTHER]->(MOM:Character)
+MATCH (DAD)-[:HAS_FATHER]->(N:Character)
+MATCH (MOM)-[:HAS_FATHER]->(N1:Character)
+RETURN DISTINCT  c,N.name as grand_father_OF_DAD,N1.name as grand_father_OF_MOM
+
+#third way
+MATCH (C:Character)<-[:SIBLING]-()
+WITH  collect(DISTINCT C.id) as SIBLING
+MATCH (c:Character)
+WHERE NOT c.id IN SIBLING
+MATCH (c)-[HF:HAS_FATHER]->(DAD:Character)
+MATCH (c)-[HM:HAS_MOTHER]->(MOM:Character)
+OPTIONAL MATCH (DAD)-[r:HAS_FATHER]->(N:Character)
+OPTIONAL MATCH (MOM)-[r1:HAS_FATHER]->(N1:Character)
+RETURN DISTINCT  c.name,N.name as grand_father_OF_DAD,N1.name as grand_father_OF_MOM
+
+
+#-----1.5
+MATCH (a:Character)<-[:SIBLING|:SPOUSE|:HAS_FATHER|:HAS_MOTHER|:HAS_RELATIVE]-(b:Character)-[E:ENEMY]-(a)
+....
+MATCH (a:Character)<-[:SIBLING|:SPOUSE|:HAS_FATHER|:HAS_MOTHER|:HAS_RELATIVE]-(b:Character)-[E:ENEMY]-(a)
+DELETE E
+return a,b
+
+#----1.6
+MATCH (c:Country)<-[:IN_COUNTRY]-(m:Character)-[:HAS_OCCUPATION]->(count_:Occupation {name:"swordfighter"})
+
+RETURN count(count_ ) As count_ , c.name ORDER BY count_ DESC
+
+1.6.2
+MATCH (c:Country)<-[:IN_COUNTRY]-(m:Character)-[:HAS_OCCUPATION]->(count_:Occupation {name:"swordfighter"})
+WITH  collect( m.id) as countrywordfighter,m
+MATCH (C:Character)-[:HAS_OCCUPATION]->(count_:Occupation {name:"swordfighter"})
+WHERE NOT C.id IN countrywordfighter
+MATCH (familycountry:Country)<-[:IN_COUNTRY]-(m1:Character)-[:SIBLING]-(C:Character)-[:HAS_OCCUPATION]->(o1:Occupation {name:"swordfighter"})
+RETURN DISTINCT C.name,m1.name,familycountry
+
+
+
+
+#1.7
+MATCH  (c:Country{name:"Shire"})-[:IN_COUNTRY]-(m:Character)
+  WITH count(m) As total
+  MATCH  (c:Country{name:"Shire"})-[:IN_COUNTRY]-(m1:Character)-[:PARTICIPATED]-(E:Event {name:"the Council of Elrond"})
+RETURN 
+       100.0 * count(m1) / total AS percent
+
+#1.8
+
+MATCH (C:Country)
+OPTIONAL MATCH (C)<-[:IN_COUNTRY]-(c:Character)-[P:PARTICIPATED]->(E:Event)
+RETURN  C.name as Country,Count(DISTINCT c.name) as count,collect(DISTINCT c.name) as Members,
+collect(DISTINCT E.name) as Events
+
+
+
+....
