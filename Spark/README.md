@@ -17,5 +17,7 @@ In this task, the questions were answered with Spark and with two different appr
 ## Spark GraphX
 In this task, the graphs in question are extracted from [Wikipedia](https://www.wikipedia.org/) articles. Each node is a Wikipedia article and an edge from article A to article B indicates that article A referred to article B.
 
+![Spark GraphX](Spark_GraphX.PNG "Spark GraphX ")
+
 
 
