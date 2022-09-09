@@ -5,7 +5,7 @@
 In this project, I've worked with different NoSQL databases like MongoDB, Neo4j, Cassandra and Elasticsearch for asked queries and data analysis.
 
 ## MongoDB
-Queries for crawled tweet from [Sahamyab site](https://www.sahamyab.com/) which are Smart investment network in Iran.
+Queries for crawled tweet from [Sahamyab site](https://www.sahamyab.com/) which are smart investment network in Iran.
 
 ## Neo4j
 After creating Nodes for each dataset of an Lord of the Rings film, I've written queries in `Cypher` to extract relevant data from created graphs for each query.
