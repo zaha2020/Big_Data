@@ -1,4 +1,4 @@
-# Using Apache Spark for NLP,Log mining, Stock and Graph tasks.
+# Using Apache Spark for NLP,Log mining, Stock and Graph tasks
 
 ## Decription:
 
