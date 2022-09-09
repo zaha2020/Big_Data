@@ -1,0 +1,26 @@
+
+ day | track_id | genre               | sum_
+-----+----------+---------------------+-----------
+   7 |    93566 |            Soul-RnB |    728584
+   0 |   150617 |        Experimental |   5949620
+  14 |   151994 |          Electronic |  20852523
+   1 |    54551 |                Jazz |   2048798
+  12 |    24360 |        Instrumental |   8847695
+   0 |   153867 |              others | 169569810
+   0 |   154617 |                Folk |   2776461
+   1 |    31722 |                 Pop |   3221202
+  18 |   138920 |             Country |    476054
+   0 |    10098 | Old-Time / Historic |   2225413
+   0 |    29376 |                Rock |  13208705
+  11 |    58824 |           Classical |   6754637
+   0 |    50671 |      Easy Listening |     54809
+   0 |   153476 |       International |   4245658
+  29 |    32476 |             Hip-Hop |   5938864
+   8 |      922 |              Spoken |    413732
+  25 |   140582 |               Blues |    935960
+
+(17 rows)
+
+Warnings :
+Aggregation query used without partition key
+

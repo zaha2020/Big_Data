@@ -1,0 +1,259 @@
+
+PUT /movies/movie/1
+    {
+    "title": "The Godfather",
+    "director": "Francis Ford Coppola",
+    "year": 1972
+    }
+
+PUT movies/movie/2
+    {
+    "title": "Lawrence of Arabia",
+    "director": "David Lean",
+    "year": 1962,
+    "genres": ["Adventure", "Biography", "Drama"]
+    }
+PUT movies/movie/3
+    {
+    "title": "To Kill a Mockingbird",
+    "director": "Robert Mulligan",
+    "year": 1962,
+    "genres": ["Crime", "Drama", "Mystery"]
+    }
+PUT movies/movie/4
+    {
+    "title": "Apocalypse Now",
+    "director": "Francis Ford Coppola",
+    "year": 1979,
+    "genres": ["Drama", "War"]
+    }
+PUT movies/movie/5
+    {
+    "title": "Kill Bill: Vol. 1",
+    "director": "Quentin Tarantino",
+    "year": 2003,
+    "genres": ["Action", "Crime", "Thriller"]
+    }
+PUT movies/movie/6
+    {
+    "title": "The Assassination of Jesse James by the Coward Robert Ford",
+    "director": "Andrew Dominik",
+    "year": 2007,
+    "genres": ["Biography", "Crime", "Drama"]
+    }
+GET /movies/movie/4  
+
+POST movies/movie/_search
+    {
+    "query": {
+    	"query_string": {
+    						"query": "kill"
+   						 }
+   			 }
+    }
+POST /_search
+    {
+    "query": {
+    		"query_string": {
+   					 "query": "kill",
+  								  "fields": ["title"]
+    						}
+    			}
+    }
+POST /_search
+    {
+    "query": {
+      "query_string" : { "query":"(genres:Drama) AND (year:[* TO 2005] )" }
+
+   					
+    			}
+    }
+    
+POST /_search
+    {
+    "query": {
+    	"query_string" : {"query": "(genres:Drama) OR (title:kill^2)" }
+
+
+    						
+    			}
+    }
+    
+POST /movies/movie/_search
+    {
+   	 "query": {
+    		"match": {
+   				 "genres": "drama"
+    				}
+    			}
+    }
+  POST /movies/movie/_search
+    {
+    	"query": {
+    			"multi_match": {
+   						"query": "ford",
+    					"fields": [
+    							"title^3",
+    							"director"
+    								]
+    							}
+    			}
+   }
+   
+POST /movies/movie/_search
+    {
+  	  "query": {
+  			  "bool": {
+  					  "must": [
+   								 {
+   									 "match": {
+   										 "genres": "drama"
+  											  }
+   								 },
+    							{
+    								"match": {
+   										 "title": "kill"
+    										}
+    							}
+    						]
+    				}
+    		}
+    }
+POST /movies/movie/_search
+{
+	"query": {
+		"bool": {
+			"must": {
+				"bool": {
+						"should": [
+										{
+											"match": {
+														"title": "ford"
+													 }
+										},
+										{
+											"match": 	{
+													"title": "kill"
+														}
+										}
+									]
+						}
+					},
+			"must_not": {
+					"match": {
+								"genres": "Mystery"
+							}
+						}
+					}
+			}
+}
+POST /movies/movie/_search
+    {
+   	 "query": {
+    		"bool": {
+    			"must": [
+  						  	{
+   							 "match": { "title": "kill" }
+    						}
+   						 ],
+   				"filter": {
+    					"bool": {
+    						"must": [
+    							{
+    							"range": {
+                                    "year": { "gte": 1960}
+    									}
+    							},
+    							{
+    							"term": {
+    									"genres": {"value": "drama" }
+    									}
+    							}
+    								]
+    							}
+    					}
+    			}
+    		}
+    }
+    
+POST /movies/movie/_search
+    {
+   	 "query": {
+    		"bool": {
+  		"filter": {
+    					"bool": {
+    						"must": [
+    							{
+    							"range": {
+                                    "year": { "gte": 1960}
+    									}
+    							},
+    							{
+    							"term": {
+    									"genres": {"value": "drama" }
+    									}
+    							}
+    								]
+    							}
+    					}
+    			}
+    		}
+    }
+    
+POST /_search?pretty
+{
+	  "query": {
+    		"bool": {
+ 				   "must": [
+    					{
+                            "range": {
+  								  "year": 	{ "gte": 1960}
+    								}},
+                       {
+   							"term": {
+   									 "genres": {"value": "Drama" }
+    								} }
+    						]
+    				}
+   			 }
+    }
+    
+    
+  
+POST twitter/_search
+    {
+    "query": {
+    		"query_string": {
+   					 "query": "بورس",
+  								  "fields": ["content"]
+    						}
+    			}
+    }
+
+POST twitter/_search
+    {
+   	 "query": {
+    		"match": {
+   				 "hashtags": "کرمان"
+    				}
+    			}
+    }
+POST twitter/_search
+    {
+  	  "query": {
+  			  "bool": {
+  					  "must": [
+   								 {
+   									 "match": {
+   										 "content": "قیمت"
+  											  }
+   								 },
+    							{
+    								"match": {
+   										 "hashtags": "خودرو"
+    										}
+    							}
+    						]
+    				}
+    		}
+    }
