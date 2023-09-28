@@ -4,7 +4,7 @@ This repository contains the implementation of a wide variety of BigData Project
 ## list of content
 
 ### Data Pipelines
-- [A real-time BigData system for analysis of online Persian Twitter data](https://github.com/zaha2020/Big_Data/tree/main/A_realtime_BigData_system)
+- [Launching a real-time Big Data system for the analysis of online Persian Twitter data](https://github.com/zaha2020/Big_Data/tree/main/A_realtime_BigData_system)
 
 ### NoSQL DataBases
 - [Working with NoSQL Databases like MongoDB, Neo4j, Cassandra, and Elasticsearch for data analytics](https://github.com/zaha2020/Big_Data/tree/main/NoSQL_DataBases)
